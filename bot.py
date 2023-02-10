@@ -27,9 +27,7 @@ class MyClient(commands.Bot):
         date = datetime.now()
         weekday = date.weekday()
 
-        print(weekday, date.hour, date.minute, date.second)
-
-        if weekday == 4 and (date.minute == 5 or date.minute == 10):
+        if weekday == 4 and date.hour == 15 and date.minute == 0:
             delta = None
             if self.last_sent_at is not None:
                 delta = date - self.last_sent_at
@@ -43,7 +41,6 @@ class MyClient(commands.Bot):
                     presence_penalty = 2.0)
                     
                 qotw = response["choices"][0]["text"].strip()
-                print([d["text"] for d in response["choices"]])
 
                 self.last_sent_at = datetime.now()
                 await channel.send(qotw)
